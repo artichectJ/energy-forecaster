@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+env/
+
+# Data files (too large for GitHub)
+data/raw/
+data/models/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/
+
+# Environment variables
+.env
+
+# Streamlit
+.streamlit/secrets.toml
