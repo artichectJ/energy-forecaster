@@ -1,10 +1,13 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import zipfile
+import io
+import requests
 
-# Project root and data path
+# Project root
 ROOT_DIR = Path(__file__).resolve().parent.parent
-RAW_DATA_PATH = ROOT_DIR / "data" / "raw" / "household_power_consumption.txt"
+DATA_URL = "https://archive.ics.uci.edu/static/public/235/individual+household+electric+power+consumption.zip"
 
 
 def load_data(resample_freq: str = "h") -> pd.DataFrame:
@@ -12,19 +15,22 @@ def load_data(resample_freq: str = "h") -> pd.DataFrame:
     Loads, cleans and resamples the UCI Household Power Consumption dataset.
 
     Args:
-        resample_freq: Resampling frequency — 'H' for hourly, 'D' for daily.
+        resample_freq: Resampling frequency — 'h' for hourly, 'D' for daily.
 
     Returns:
         A clean, indexed, resampled DataFrame ready for EDA and modelling.
     """
 
-    print("📂 Loading raw data...")
-    df = pd.read_csv(
-        RAW_DATA_PATH,
-        sep=";",
-        low_memory=False,
-        na_values=["?"],
-    )
+    print("📂 Downloading dataset from UCI...")
+    r = requests.get(DATA_URL)
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    with z.open("household_power_consumption.txt") as f:
+        df = pd.read_csv(
+            f,
+            sep=";",
+            low_memory=False,
+            na_values=["?"],
+        )
 
     print("🧹 Cleaning and parsing timestamps...")
     # Merge Date and Time into a single datetime index
