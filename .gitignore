@@ -5,6 +5,11 @@ env/
 # Data files (too large for GitHub)
 data/raw/
 data/models/
+*.csv
+*.xlsx
+*.parquet
+*.h5
+*.pkl
 
 # Python cache
 __pycache__/
