@@ -9,6 +9,8 @@ data/raw/
 *.parquet
 *.h5
 
+data/models/arima_model.pkl
+
 # Python cache
 __pycache__/
 *.py[cod]
