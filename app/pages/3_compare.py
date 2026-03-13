@@ -52,8 +52,7 @@ def get_data():
 def load_models():
     xgb     = joblib.load(MODELS_DIR / "xgboost_model.pkl")
     prophet = joblib.load(MODELS_DIR / "prophet_model.pkl")
-    arima   = joblib.load(MODELS_DIR / "arima_model.pkl")
-    return xgb, prophet, arima
+    return xgb, prophet,
 
 @st.cache_data
 def get_predictions(_xgb, _prophet, df):
@@ -78,8 +77,8 @@ st.markdown("---")
 
 with st.spinner("Loading models and generating predictions..."):
     df                                               = get_data()
-    xgb, prophet, arima                              = load_models()
-    test_df, xgb_preds, prophet_preds, arima_actuals = get_predictions(xgb, prophet, df)
+    xgb, prophet                              = load_models()
+    test_df, xgb_preds, prophet_preds= get_predictions(xgb, prophet, df)
 
 # ── Metrics table ──────────────────────────────────────────────────────────────
 st.markdown("### Performance Metrics")
