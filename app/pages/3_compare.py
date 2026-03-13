@@ -67,8 +67,7 @@ def get_predictions(_xgb, _prophet, df):
     prophet_df["lag_24h"]          = test_df["lag_24h"].values
     forecast      = _prophet.predict(prophet_df)
     prophet_preds = np.clip(forecast["yhat"].values, 0, None)
-    arima_actuals = test_df["active_power"].iloc[:200]
-    return test_df, xgb_preds, prophet_preds, arima_actuals
+    return test_df, xgb_preds, prophet_preds
 
 # ── Page header ────────────────────────────────────────────────────────────────
 st.markdown("# MODEL COMPARISON")
